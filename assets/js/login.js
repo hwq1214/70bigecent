@@ -61,9 +61,6 @@ $(function () {
         console.log(res.message)
       }
       // 进入登录页面index.html
-      alert(1)
-
-      // 调转
       // window.location.href="/index.html"
     })
   })
