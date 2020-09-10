@@ -37,7 +37,7 @@ $(function () {
 
   // 1. 绑定submit事件
 
-  $('.layui-form').submit(function (e) {
+  $('#btn-reg').submit(function (e) {
     // 2. 阻止默认行为
     e.preventDefault()
     // 3. 获取表单数据
@@ -50,18 +50,37 @@ $(function () {
       username: username,
       password: password,
     }
-    $.post('http://ajax.frontend.itheima.net/api/reguser', formdata, function (
-      res
-    ) {
+    $.post('/api/reguser', formdata, function (res) {
       // 5. 处理res响应
       // 请求是否成功，0：成功；1：失败
       if (res.status === 0) {
-        console.log(res.message)
-      } else {
-        console.log(res.message)
+        $('#link-reg').click()
       }
+
       // 进入登录页面index.html
       // window.location.href="/index.html"
+
+      layui.layer.msg(res.message)
+    })
+  })
+
+  // login请求
+  $('#btn-login').submit(function (e) {
+    e.preventDefault()
+    var formdata = $(this).serialize()
+    $.post('/api/login', formdata, function (res) {
+      if (res.status === 0) {
+        // 跳转
+        // window.location.href = '/index.html'
+        // token(令牌)  场景：当要去请求有权限（）要求的接口时-  --- TODO 看接口文档
+        // console.log(res.token)
+        // if(res.token.length!==0){
+        //   window.localStorage.setItem('token', res.token)
+        // }
+        res.token.length !== 0 &&
+          window.localStorage.setItem('token', res.token)
+      }
+      layui.layer.msg(res.message)
     })
   })
 })
