@@ -15,25 +15,21 @@
       <div class="layui-card-header">文章列表</div>
       <div class="layui-card-body">
         <!-- 内容区一  搜索区 -->
-        <form class="layui-form">
+        <form class="layui-form" id="form-search">
           <div class="layui-form-item">
             <div class="layui-inline">
               <div class="layui-input-inline" style="width: 100px">
-                <select name="city" lay-verify="">
-                  <option value="">所有分类</option>
-                  <option value="010">北京</option>
-                  <option value="021">上海</option>
-                  <option value="0571">杭州</option>
+                <select name="cate_id" id="sct-cate">
+                  <!-- 动态渲染 -->
                 </select>
               </div>
 
               <div class="layui-input-inline" style="width: 100px">
                 <!-- 表单请求： name=“city” value=“010” -->
-                <select name="city" lay-verify="">
+                <select name="state">
                   <option value="">所有状态</option>
-                  <option value="010">北京</option>
-                  <option value="021">上海</option>
-                  <option value="0571">杭州</option>
+                  <option value="已发布">已发布</option>
+                  <option value="草稿">草稿</option>
                 </select>
               </div>
             </div>
@@ -104,6 +100,15 @@
       </tr>
       {{/each}}
     </script>
+
+    <!-- select的option所有分类模板 -->
+
+    <script type="text/html" id="tpl-cate">
+      <option value="">所有分类</option>
+      {{each data}}
+      <option value="{{$value.Id}}">{{$value.name}}</option>
+      {{/each}}
+    </script>
     <!-- 加载jquery.js -->
     <script src="/assets/lib/jquery.js"></script>
 
@@ -123,5 +128,8 @@
   让formatDate这个方法的处理|前面的pub_date数据，再渲染到视图上
         <td>{{$value.pub_date | formatDate}}</td>
 
+
+        cate_id	否	string	文章分类的 Id
+        state	否	string	文章的状态，可选值有：已发布、草稿
 
  -->
